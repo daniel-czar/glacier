@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "fixture_version": "1.7.0",
+  "value_types": {
+    "length": {"units": ["%", "w", "s"], "default_unit": "%"},
+    "langcode": {"codes": ["de", "en", "en-GB", "en-US"]},
+    "enum": {"style": ["formal"], "expand": ["deepen", "broaden", "concretise", "challenge", "connect"], "stash": ["1", "2", "3", "4", "5"]}
+  },
+  "commands": [
+    {"token":"/email","role":"primary","module":"draft.email","module_version":1,"execution":"model-backed","capabilities":["draft-communication"],"accepted_modifiers":["/style:formal"],"accepted_modes":["/offline"],"intent_markers":["✓","✗"],"bound_guides":["identity"]},
+    {"token":"/msg","role":"primary","module":"draft.message","module_version":1,"execution":"model-backed","capabilities":["draft-communication"],"accepted_modifiers":["/style:formal"],"accepted_modes":["/offline"],"intent_markers":[],"bound_guides":["identity"]},
+    {"token":"/qq","role":"primary","module":"answer.quick","module_version":1,"execution":"model-backed","capabilities":[],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/translate","role":"primary","module":"translate","module_version":1,"execution":"model-backed","capabilities":[],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[],"value":{"type":"langcode","required":false}},
+    {"token":"/slug","role":"primary","module":"title.slug","module_version":1,"execution":"model-backed","capabilities":[],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/stance","role":"primary","module":"decide.stance","module_version":1,"execution":"model-backed","capabilities":[],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[],"bound_guides":["identity"]},
+    {"token":"/structure","role":"primary","module":"think.structure","module_version":1,"execution":"model-backed","capabilities":[],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[],"bound_guides":["identity"]},
+    {"token":"/expand","role":"primary","module":"think.expand","module_version":1,"execution":"model-backed","capabilities":[],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[],"value":{"type":"enum","registry":"expand","required":false},"bound_guides":["identity"]},
+    {"token":"/meaning","role":"primary","module":"think.meaning","module_version":1,"execution":"model-backed","capabilities":[],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[],"bound_guides":["identity"]},
+    {"token":"/shorter","role":"primary","module":"","module_version":1,"execution":"policy","capabilities":[],"accepted_modifiers":[],"accepted_modes":[],"intent_markers":[],"value":{"type":"length","required":false}},
+    {"token":"/g","role":"primary","module":"open.search","module_version":1,"execution":"deterministic-local","capabilities":["open-url"],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/fav","role":"primary","module":"capture.favorite","module_version":1,"execution":"deterministic-local","capabilities":["capture-link"],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/todo","role":"primary","module":"capture.todo","module_version":1,"execution":"deterministic-local","capabilities":["append-ledger"],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/remind","role":"primary","module":"cache.remind","module_version":1,"execution":"deterministic-local","capabilities":["append-office-queue"],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/stash","role":"primary","module":"cache.stash","module_version":1,"execution":"deterministic-local","capabilities":["write-current-stash"],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[],"value":{"type":"enum","registry":"stash","required":false}},
+    {"token":"/capture","role":"primary","module":"capture.base","module_version":1,"execution":"deterministic-local","capabilities":["capture-base-note"],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/find","role":"primary","module":"find.indexed","module_version":1,"execution":"model-backed","capabilities":["read-index"],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/open","role":"primary","module":"open.target","module_version":1,"execution":"deterministic-local","capabilities":["open-target"],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/rv","role":"primary","module":"reveal.target","module_version":1,"execution":"deterministic-local","capabilities":["reveal-target"],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/span","role":"primary","module":"compute.span","module_version":1,"execution":"deterministic-local","capabilities":[],"accepted_modifiers":[],"accepted_modes":["/offline"],"intent_markers":[]},
+    {"token":"/settings","role":"settings","module":"settings.omni","module_version":1,"execution":"settings","capabilities":["write-settings"],"accepted_modifiers":[],"accepted_modes":[],"intent_markers":[]},
+    {"token":"/model","role":"settings","module":"settings.model","module_version":1,"execution":"settings","capabilities":["write-settings"],"accepted_modifiers":[],"accepted_modes":[],"intent_markers":[]},
+    {"token":"/workspace","role":"settings","module":"","module_version":1,"execution":"settings","capabilities":[],"accepted_modifiers":[],"accepted_modes":[],"intent_markers":[]},
+    {"token":"/offline","role":"mode","module":"","module_version":1,"execution":"policy","capabilities":[],"accepted_modifiers":[],"accepted_modes":[],"intent_markers":[]},
+    {"token":"/style","role":"modifier","module":"","module_version":1,"execution":"policy","capabilities":[],"accepted_modifiers":[],"accepted_modes":[],"intent_markers":[],"value":{"type":"enum","registry":"style","required":true}},
+    {"token":"/formal","role":"alias","canonical":"/style:formal","module":"","module_version":1,"execution":"policy","capabilities":[],"accepted_modifiers":[],"accepted_modes":[],"intent_markers":[]},
+    {"token":"/retrieve","role":"alias","canonical":"/find","module":"","module_version":1,"execution":"policy","capabilities":[],"accepted_modifiers":[],"accepted_modes":[],"intent_markers":[]}
+  ]
+}

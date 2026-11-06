@@ -1,0 +1,2 @@
+# Local cross-repository agent instructions are not part of public source archives.
+/AGENTS.md export-ignore

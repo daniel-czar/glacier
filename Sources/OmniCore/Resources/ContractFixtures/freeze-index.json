@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "freeze_version": "1.0.0",
+  "generated_at_utc": "2026-09-03T19:03:09Z",
+  "architecture": {
+    "path": "historical-source-architecture",
+    "sha256": "ea9d0960920075ea43fc707e45d25545f9d05f5927f3058606c7ee94c01b22fb",
+    "note": "Original developer-local path omitted from the detached source snapshot."
+  },
+  "files": [
+    {
+      "relative_path": "Fixtures/authority-policy.json",
+      "sha256": "e8b480a811655dfedbacd68e6671f472ffea995447a26ea01232f3696cbc5449",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": 1
+    },
+    {
+      "relative_path": "Fixtures/contract-corpus-schema.json",
+      "sha256": "2edcecaf87dfac533df244d1a0fa9e01f71e472dc00b5d4e9389359c60fe7e46",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": 1
+    },
+    {
+      "relative_path": "Fixtures/foreground-transitions.json",
+      "sha256": "5938ca2c95d2eef7b3308cfc4fa3eb81ee6278bc1cb6b11951e3f291a162bc4e",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": 1
+    },
+    {
+      "relative_path": "Fixtures/grammar-cases.json",
+      "sha256": "0556ab57acc1c066486ae3555db8fd581fdea7856e3ed894923298e27f6bafcd",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "Fixtures/lifecycle-events.json",
+      "sha256": "b7624c2855ff5d6a98698c210d913e598517edcaa17694c2e5302e48f0361ac6",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": 1
+    },
+    {
+      "relative_path": "Fixtures/manifest.json",
+      "sha256": "38b2be8079b58782cf55f9d1bf1d51cc021e486b5c084d4bc2dbc6781c6da7b6",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": 1
+    },
+    {
+      "relative_path": "Fixtures/module-declarations.json",
+      "sha256": "af82c995967ca9147b1196c042bcb72f02defb3573aa1bf966c0cc893002605d",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": 1
+    },
+    {
+      "relative_path": "Fixtures/reference-rules.json",
+      "sha256": "d1108ecefff8717078fc84f21ea2a6ba55804cfcadcae6a396510f7656da0674",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": 1
+    },
+    {
+      "relative_path": "Fixtures/storage-semantics.json",
+      "sha256": "a718d978d67fc477ddb9146d452fb8277eabaac2afbeb51ea574d28fff845f74",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": 1
+    },
+    {
+      "relative_path": "Fixtures/tier2-proposals.json",
+      "sha256": "ac833b3e161861f54fd8f0801670fec908bd8c1aedea579cc3df198159d09dcd",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": 1
+    },
+    {
+      "relative_path": "NativeProbePackage/Fixtures/receipts.json",
+      "sha256": "7dc20e5edbbd2aeefa80383b7a64dfc5f76902c50bc03d2e8c9c118a64f9ace7",
+      "category": "fixture",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "NativeProbePackage/Package.swift",
+      "sha256": "992103af58557887de520fc283c7a9c0526cefecf30c35e4c9ad593e45753dd3",
+      "category": "package",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "NativeProbePackage/Sources/NativeProbeApp/main.swift",
+      "sha256": "4a2015b5e0b76a8673263d50e957eb7118d2daf237f6d01f5b992ceb8d0c206b",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "NativeProbePackage/Sources/OmniProbeCore/IngressAndNotifications.swift",
+      "sha256": "87b12896a633c049a1a9591f65c686a29dd6cccdfd4a6fd968754c7e9ae7d6bd",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "NativeProbePackage/Sources/OmniProbeCore/Reconstruction.swift",
+      "sha256": "04f600f3c03d2880c916e8c14b5202bc3ffa8c13ce4c2a448b507807b9a77803",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "NativeProbePackage/Sources/OmniProbeCore/SurfaceContracts.swift",
+      "sha256": "538cf857741a3966a42f928f88273c1b92f43b58095387f2bc43a2ed76f20aa0",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "NativeProbePackage/Tests/OmniProbeCoreTests/CoordinatorTests.swift",
+      "sha256": "45a1580ad60b081942c29f9aa44ba07f95e89cab3bacd11e6d73cab4777c72d5",
+      "category": "test",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "NativeProbePackage/Tests/OmniProbeCoreTests/IngressNotificationTests.swift",
+      "sha256": "353ac8932d19838770f8c460e82280c5dcf453f4655cd07a0ac8f9db22adf484",
+      "category": "test",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "Package.swift",
+      "sha256": "b1990ad3183249aabdb582984be2b6de58d82bcdaab074164c8ed4c9f3a03eb1",
+      "category": "package",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "Scripts/audit_live_boundary.sh",
+      "sha256": "afc0614b1675e6ec452bf24dbc1089ddd7a7f5739aaaceacf40ece2fb95ec57a",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "Scripts/capture_boundaries.sh",
+      "sha256": "73b49bc39d4afbdbcff607f0144450d408f80c710b73039f10430b7391feafe3",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "Scripts/capture_toolchain.sh",
+      "sha256": "0a605b0f9b6025b66febaa87e0928d05a0f4a63dec2a8065fc00f782e416646e",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "Scripts/check_artifact_whitespace.sh",
+      "sha256": "ebfc8a6660c4836429d4c801df9fa03c2a1ff6ea9b15e516db22d2f26bf7e1db",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "Scripts/freeze_index.sh",
+      "sha256": "7ded6f7fe03dadf24739e918392d194db7fcee12bf343582fc74a02b1dfbc463",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "Sources/OmniContractValidator/main.swift",
+      "sha256": "b6f602f54a55a4d8236f7aea4168f6153fa7b714192c86ac77733e1d1154a8e0",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "Sources/OmniPhase1Contracts/OmniPhase1Contracts.swift",
+      "sha256": "f2a8f43ba8036c8ac49e966d89bad756656764665341115f9b77c26a535ae838",
+      "category": "source",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    },
+    {
+      "relative_path": "Tests/OmniPhase1ContractsTests/ContractTests.swift",
+      "sha256": "c063dc6ea1afa5cabb2bf5fd8a03fde6e0558bb444dd685fc27f5d921c49054a",
+      "category": "test",
+      "fixture_version": "1.0.0",
+      "schema_version": null
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+name: Synthetic checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic:
+    runs-on: xcode-27
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          version: "0.11.26"
+          python-version: "3.12.13"
+          enable-cache: false
+
+      - name: Install Python for synthetic checks
+        run: uv python install 3.12.13
+
+      - name: Python checks
+        env:
+          UV_PROJECT_ENVIRONMENT: ${{ runner.temp }}/glacier-python
+          MYPYPATH: Helpers/Pronunciation/source/src
+        run: |
+          uv run --project Helpers/Pronunciation/source --group dev --locked ruff check --isolated --select E4,E7,E9,F Scripts Helpers/Pronunciation/build-runtime.py Helpers/Pronunciation/test_offline.py
+          uv run --project Helpers/Pronunciation/source --group dev --locked ruff check Helpers/Pronunciation/source/src Helpers/Pronunciation/source/tests
+          uv run --project Helpers/Pronunciation/source --group dev --locked ruff format --check --isolated Scripts Helpers/Pronunciation/build-runtime.py Helpers/Pronunciation/test_offline.py
+          uv run --project Helpers/Pronunciation/source --group dev --locked ruff format --check Helpers/Pronunciation/source/src Helpers/Pronunciation/source/tests
+          uv run --project Helpers/Pronunciation/source --group dev --locked mypy --strict --cache-dir=/dev/null Scripts/package_glacier.py Scripts/run_tests.py Scripts/test_package_glacier.py Helpers/Pronunciation/build-runtime.py Helpers/Pronunciation/test_offline.py Helpers/Pronunciation/source/src/pron
+          uv run --project Helpers/Pronunciation/source --group dev --locked python -B -m pytest Helpers/Pronunciation/source/tests
+          uv run --project Helpers/Pronunciation/source --group dev --locked python -B Helpers/Pronunciation/test_offline.py
+          uv run --project Helpers/Pronunciation/source --group dev --locked python -B Scripts/test_package_glacier.py
+
+      - name: Swift synthetic tests
+        run: uv run --offline --no-project python Scripts/run_tests.py -- -j 4

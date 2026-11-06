@@ -1,0 +1,41 @@
+{
+  "client_source": "omni-intent@7da98f0:Sources/OmniDevelopment/OmniPronunciation.swift",
+  "helper_source": "pron@1a53dd78ed8c6fd9bb350b5be17a7e289c8dde48",
+  "copied": ["src/pron", "pyproject.toml", "uv.lock"],
+  "glacier_changes": [
+    "App-bundled Python and isolated support/config paths",
+    "Bounded stdin JSON event request protocol and cancellation",
+    "Explicit offline mode with network client refusal",
+    "Glacier outbound identity and gated Wikimedia source",
+    "Pinned standalone Python packaging with relocated prefix and notice inventory"
+  ],
+  "standalone_python": {
+    "source": "astral-sh/python-build-standalone release 20260623, CPython 3.12.13 aarch64-apple-darwin pgo+lto-full",
+    "full_archive_url": "https://github.com/astral-sh/python-build-standalone/releases/download/20260623/cpython-3.12.13%2B20260623-aarch64-apple-darwin-pgo%2Blto-full.tar.zst",
+    "full_archive_sha256": "ce5a2d552077d869f69dc25d834c2fe4d036f9d78e770fb5d916273db802cabc",
+    "metadata_sha256": "ad73684b0c9fd9511280f8785a500bf6b837820944a92e5264fc9d9f240ffea2",
+    "native_notice_source": "standalone-notices/PYTHON.json and the original LICENSE.*.txt files were extracted from that verified full archive; separately sourced Itcl and Thread notices are recorded below"
+  },
+  "bundled_tcl_component_notices": {
+    "itcl4.3.5": {
+      "notice": "standalone-notices/LICENSE.itcl.txt",
+      "sha256": "b61edfaeead97546bc62b1f205b046f2e440b83bfc517bc0932b93bc3d505865",
+      "source": "https://github.com/tcltk/itcl/blob/itcl-4-3-4/license.terms",
+      "crosscheck": "https://github.com/tcltk/itcl/blob/itcl-4-3-6/license.terms",
+      "qualification": "The upstream mirror has no 4.3.5 tag; the notice is byte-identical at adjacent 4.3.4 and 4.3.6 tags. Exact 4.3.5 source-tag correspondence remains to be verified."
+    },
+    "thread3.0.4": {
+      "notice": "standalone-notices/LICENSE.thread.txt",
+      "sha256": "0a03981c40f7813ce6ddbdfce9882020bcfd696ea044b21ef07619ed9b86abae",
+      "source": "https://github.com/tcltk/thread/blob/thread-3-0-4/license.terms"
+    }
+  },
+  "source_form_companion": "standalone-notices/THIRD_PARTY_SOURCES.json lists exact-version source archives for all 12 observed bundled Python distributions, including MPL-2.0 certifi and GPL-3.0-or-later cmudict. Its local companion tarball is not published or included in the app.",
+  "helper_license_status": "The copied helper is Daniel-authored source designated GPL-3.0-only under the accepted Glacier license decision; the full GPLv3 text is in source/LICENSE. CMUdict package code and data have separate bundled notices. Optional remote audio is fetched on demand, not bundled; service terms are distinct from source distribution.",
+  "local_dependency_metadata_observation": {
+    "cmudict_1.1.3": "GPL-3.0-or-later",
+    "httpx_0.28.1": "BSD-3-Clause",
+    "certifi_2026.10.18": "MPL-2.0",
+    "scope": "Verified against the bundled local app from Glacier source 1fdde8c; the packaging script records every installed distribution for each staged runtime."
+  }
+}

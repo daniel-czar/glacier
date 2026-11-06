@@ -1,0 +1,31 @@
+[project]
+name = "pron"
+version = "0.1.0"
+description = "English pronunciation lookup with attributed IPA and audio"
+license = "GPL-3.0-only"
+requires-python = ">=3.12"
+dependencies = ["httpx>=0.28,<1", "cmudict>=1.1,<2"]
+
+[project.scripts]
+pron = "pron.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["pytest>=8", "mypy>=1.15", "ruff>=0.11"]
+
+[tool.mypy]
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["live: opt-in network checks requiring PRON_LIVE=1"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

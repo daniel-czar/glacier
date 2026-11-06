@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "validator_version": "omni-phase1-contract-validator/1.0.0",
+  "required_fixtures": ["manifest.json", "grammar-cases.json", "module-declarations.json", "reference-rules.json", "authority-policy.json", "tier2-proposals.json", "lifecycle-events.json", "foreground-transitions.json", "storage-semantics.json"],
+  "contract": "development-only; no live owner paths or production runtime imports"
+}

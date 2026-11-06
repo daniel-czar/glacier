@@ -1,0 +1,1 @@
+{"schema_version":1,"fixture_version":"1.0.0","registries":[{"namespace":"people","key":"zoe","id":"person_1"}],"cases":[{"input":"@zoe","result":"visible-unique-rewrite"},{"input":"@people:zoe","result":"read-only-binding"},{"input":"@unknown","result":"plain-text"},{"input":"duplicate-key","result":"invalid-registry"},{"input":"ambiguous-key","result":"picker-no-run"}]}

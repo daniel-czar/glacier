@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "fixture_version": "1.0.0",
+  "states": ["submitted", "queued", "running", "succeeded", "failed", "cancelled", "interrupted", "proposing", "proposal_ready", "confirmed", "dismissed", "expired"],
+  "event_fields": ["event_id", "run_id", "timestamp", "actor", "module_version", "manifest_version", "typed_detail"],
+  "effect_order": ["effect_attempted", "effect_succeeded|effect_failed|effect_uncertain"],
+  "cancellation_order": ["cancellation_requested", "cancellation_acknowledged", "cancelled"],
+  "cancellation_acknowledgement": {
+    "requires_prior_request": true,
+    "requires_process_or_task_stopped": true,
+    "requires_owner_acknowledgement": true,
+    "requires_effect_certainty": true,
+    "unresolved_terminal_state": "interrupted",
+    "unresolved_effect": "effect_uncertain"
+  },
+  "recovery": {"unmatched_attempt": "effect_uncertain", "nonterminal": "interrupted"},
+  "retention": {"tombstone_before_payload_delete": true}
+}

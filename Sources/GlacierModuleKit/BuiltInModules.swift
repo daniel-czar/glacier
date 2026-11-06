@@ -1,0 +1,110 @@
+import GlacierConfiguration
+
+extension ModuleRegistry {
+    /// The public catalogue is data, not factory registration. App composition supplies the
+    /// implementation for each ID and reports readiness through the `unavailable` argument.
+    public static let builtIn: ModuleRegistry = try! ModuleRegistry(descriptors: builtInDescriptors)
+
+    public static let builtInDescriptors: [ModuleDescriptor] = {
+        let modelTasks = [
+            "tool.quick-question": "answer.quick", "command.qq": "answer.quick",
+            "tool.translate": "translate", "command.translate": "translate",
+            "tool.concept-lens": "think.meaning", "command.meaning": "think.meaning",
+            "tool.express": "express.alternatives", "tool.map": "map.draw",
+            "tool.recall": "recall.command", "tool.emoji": "emoji.suggest", "tool.regex": "regex.write",
+            "command.email": "draft.email", "command.msg": "draft.message", "command.slug": "title.slug",
+            "command.stance": "decide.stance", "command.structure": "think.structure", "command.expand": "think.expand"
+        ]
+        func action(_ id: String, _ module: String, _ title: String, _ kind: ModuleKind,
+                    typed: [String] = [], slash: [String] = [], key: Bool = false,
+                    network: ModuleNetworkRequirement = .none) -> ModuleDescriptor {
+            ModuleDescriptor(id: id, moduleID: module, title: title, kind: kind,
+                             typedAliases: typed, slashTokens: slash,
+                             hasShortcut: key || kind == .ephemeralTool, networkRequirement: network, modelCommandID: modelTasks[id])
+        }
+        return [
+            action("launcher.open", "launcher", "Launcher", .launcher, key: true),
+            action("launch.open", "launch", "Apps", .launcher, key: true),
+            action("tool.quick-question", "quick-question", "Quick Question", .ephemeralTool,
+                   typed: ["qq"], key: true, network: .remoteAI),
+            action("tool.concept-lens", "concept-lens", "Concept Lens", .ephemeralTool,
+                   typed: ["ln"], key: true, network: .remoteAI),
+            action("tool.translate", "translation", "Translate", .ephemeralTool,
+                   typed: ["tr"], key: true, network: .remoteAI),
+            action("tool.pronunciation", "pronunciation", "Pronunciation", .ephemeralTool,
+                   typed: ["pr"], key: true),
+            action("tool.express", "express", "Express", .ephemeralTool,
+                   typed: ["ex"], key: true, network: .remoteAI),
+            action("tool.recall", "recall", "Recall", .ephemeralTool, typed: ["rc"], key: true),
+            action("tool.emoji", "emoji", "Emoji", .ephemeralTool, typed: ["em"]),
+            action("tool.stash", "stash", "Stash", .ephemeralTool, typed: ["st"], key: true),
+            action("tool.ratio", "ratio", "Ratio", .ephemeralTool, typed: ["ra"]),
+            action("tool.map", "map", "Map", .ephemeralTool,
+                   typed: ["mp"], network: .remoteAI),
+            action("tool.characters", "characters", "Characters", .ephemeralTool, typed: ["ch"]),
+            action("tool.weather", "weather", "Weather", .ephemeralTool,
+                   typed: ["we"]),
+            action("tool.qr", "qr", "QR", .ephemeralTool, typed: ["qr"]),
+            action("tool.regex", "regex", "Regex", .ephemeralTool, typed: ["rx"]),
+
+            action("clipboard.history", "clipboard", "Clipboard History", .clipboard,
+                   typed: ["cl"], key: true),
+            action("clipboard.collect", "clipboard", "Collect", .clipboard, key: true),
+            action("clipboard.paste-next", "clipboard", "Paste Next", .clipboard, key: true),
+            action("clipboard.paste-all", "clipboard", "Paste All", .clipboard, key: true),
+            action("clipboard.clear-collection", "clipboard", "Clear Collection", .clipboard, key: true),
+            action("clipboard.equalize", "clipboard", "Equalize Clipboard", .clipboard, key: true),
+            action("capture.new", "capture", "New Capture", .capture, key: true),
+            action("help.pin", "help", "Pin Help", .settings, key: true),
+            action("browser.search-selection", "browser-search", "Search Selection", .nativeUtility,
+                   key: true, network: .network),
+
+            action("native.reveal", "native-utilities", "Reveal", .nativeUtility, key: true),
+            action("native.open", "native-utilities", "Open", .nativeUtility, key: true),
+            action("native.jump-to-root", "jump-to-root", "Jump to Root", .nativeUtility, key: true),
+            action("native.editor", "native-utilities", "Open in Editor", .nativeUtility, key: true),
+            action("native.terminal", "native-utilities", "Terminal Here", .nativeUtility, key: true),
+            action("native.copy-path", "native-utilities", "Copy Path", .nativeUtility, key: true),
+            action("native.fence", "native-utilities", "Markdown Fence", .nativeUtility, key: true),
+            action("native.gather-files", "native-utilities", "Gather Files", .nativeUtility, key: true),
+
+            action("command.email", "writing", "Email Draft", .durableCommand,
+                   slash: ["/email"], network: .remoteAI),
+            action("command.msg", "writing", "Message Draft", .durableCommand,
+                   slash: ["/msg"], network: .remoteAI),
+            action("command.qq", "quick-question", "Quick Answer", .durableCommand,
+                   slash: ["/qq"], network: .remoteAI),
+            action("command.translate", "translation", "Translate", .durableCommand,
+                   slash: ["/translate"], network: .remoteAI),
+            action("command.slug", "writing", "URL Slug", .durableCommand,
+                   slash: ["/slug"], network: .remoteAI),
+            action("command.stance", "writing", "Stance", .durableCommand,
+                   slash: ["/stance"], network: .remoteAI),
+            action("command.structure", "writing", "Structure", .durableCommand,
+                   slash: ["/structure"], network: .remoteAI),
+            action("command.expand", "writing", "Expand", .durableCommand,
+                   slash: ["/expand"], network: .remoteAI),
+            action("command.meaning", "writing", "Meaning", .durableCommand,
+                   slash: ["/meaning"], network: .remoteAI),
+            action("command.shorter", "writing", "Shorter", .durableCommand,
+                   slash: ["/shorter"], network: .remoteAI),
+            action("command.g", "browser-search", "Browser Search", .durableCommand,
+                   slash: ["/g"], network: .network),
+            action("command.open", "launcher", "Open", .durableCommand, slash: ["/open"]),
+            action("command.rv", "launcher", "Reveal", .durableCommand, slash: ["/rv"]),
+            action("command.todo", "tasks", "Todo", .durableCommand, slash: ["/todo"]),
+            action("command.remind", "reminders", "Reminder", .durableCommand, slash: ["/remind"]),
+            action("command.fav", "capture", "Favourite", .durableCommand, slash: ["/fav"]),
+            action("command.stash", "stash", "Stash", .durableCommand, slash: ["/stash"]),
+            action("command.weather", "weather", "Weather", .durableCommand,
+                   slash: ["/weather"]),
+            action("command.capture", "capture", "Capture", .durableCommand, slash: ["/capture"]),
+            action("command.find", "launcher", "Find", .durableCommand,
+                   slash: ["/find", "/retrieve"]),
+            action("command.span", "span", "Time Span", .durableCommand, slash: ["/span"]),
+            action("settings.open", "settings", "Settings", .settings, slash: ["/settings"]),
+            action("settings.model", "settings", "Model Settings", .settings, slash: ["/model"]),
+            action("settings.offline", "settings", "Offline Mode", .settings, slash: ["/offline"]),
+        ]
+    }()
+}

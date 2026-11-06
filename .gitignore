@@ -1,0 +1,15 @@
+.build/
+.build-release/
+dist/
+.scratch/
+.DS_Store
+*.xcuserstate
+.env
+.env.*
+__pycache__/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.venv/
+.worktrees/
