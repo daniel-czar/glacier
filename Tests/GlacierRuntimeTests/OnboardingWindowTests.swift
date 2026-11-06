@@ -64,7 +64,9 @@ private func expectVisibleHeader(in image: NSBitmapImageRep, step: GlacierOnboar
         throw CocoaError(.fileReadCorruptFile)
     }
     let request = VNRecognizeTextRequest()
-    request.recognitionLevel = .accurate
+    // These are large, fixed English chrome labels. Vision's fast path uses a
+    // smaller character model than the accurate neural text pipeline.
+    request.recognitionLevel = .fast
     // Hosted macOS runners may have no usable GPU or Neural Engine. Keep the
     // image and OCR assertions real while choosing Vision's CPU path.
     request.usesCPUOnly = true

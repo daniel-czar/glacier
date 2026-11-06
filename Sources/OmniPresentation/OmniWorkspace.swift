@@ -1184,7 +1184,6 @@ public final class OmniWorkspace: NSObject, NSWindowDelegate, NSTextViewDelegate
 
     private func resultTextView(text: String, identifier: String) -> NSScrollView {
         let scroll = OmniWorkspaceTextScrollView()
-        if identifier == "omni.workspace.version-result" { scroll.readingMeasure = 620 }
         scroll.borderType = .noBorder
         scroll.drawsBackground = false
         scroll.hasVerticalScroller = true
@@ -1195,8 +1194,8 @@ public final class OmniWorkspace: NSObject, NSWindowDelegate, NSTextViewDelegate
         textView.isRichText = false
         textView.isVerticallyResizable = true
         textView.isHorizontallyResizable = false
-        // The measured result view owns its width in OmniWorkspaceTextScrollView.layout().
-        // AppKit can otherwise stretch it back to the clip width after that layout pass.
+        // The measured result wrapper owns this view's width; the clip view
+        // sizes the wrapper without stretching its selectable text child.
         textView.autoresizingMask = identifier == "omni.workspace.version-result" ? [] : [.width]
         textView.textContainer?.widthTracksTextView = true
         textView.drawsBackground = false
@@ -1211,7 +1210,9 @@ public final class OmniWorkspace: NSObject, NSWindowDelegate, NSTextViewDelegate
             textView.textStorage?.addAttributes([.font: NSFont.systemFont(ofSize: 11), .foregroundColor: OmniFrostedStyle.secondaryInk], range: NSRange(location: 0, length: "[Synthetic fixture output]".utf16.count))
         }
         textView.setAccessibilityIdentifier(identifier)
-        scroll.documentView = textView
+        scroll.documentView = identifier == "omni.workspace.version-result"
+            ? OmniWorkspaceMeasuredResultDocument(textView: textView, readingMeasure: 620)
+            : textView
         return scroll
     }
 
@@ -1508,17 +1509,61 @@ private final class OmniWorkspaceWindow: NSWindow {
 
 @MainActor
 private final class OmniWorkspaceTextScrollView: NSScrollView {
-    var readingMeasure: CGFloat?
-
     override func layout() {
         super.layout()
+        if let result = documentView as? OmniWorkspaceMeasuredResultDocument {
+            result.fit(to: contentSize)
+            return
+        }
         guard let text = documentView as? NSTextView, let container = text.textContainer else { return }
-        let width = max(1, min(contentSize.width, readingMeasure ?? .greatestFiniteMagnitude))
+        let width = max(1, contentSize.width)
         container.containerSize = NSSize(width: width, height: .greatestFiniteMagnitude)
         text.layoutManager?.ensureLayout(for: container)
         let used = text.layoutManager?.usedRect(for: container).height ?? 0
         let size = NSSize(width: width, height: max(contentSize.height, used + text.textContainerInset.height * 2 + 4))
         if text.frame.size != size { text.setFrameSize(size) }
+    }
+}
+
+/// NSClipView may resize its document to the viewport after the scroll view lays
+/// out. It owns this wrapper; the selectable result is a child with its own
+/// reading measure, so the clip view cannot stretch the text itself.
+@MainActor
+private final class OmniWorkspaceMeasuredResultDocument: NSView {
+    let textView: OmniSelectableTextView
+    let readingMeasure: CGFloat
+
+    init(textView: OmniSelectableTextView, readingMeasure: CGFloat) {
+        self.textView = textView
+        self.readingMeasure = readingMeasure
+        super.init(frame: .zero)
+        addSubview(textView)
+    }
+
+    @available(*, unavailable) required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    override var isFlipped: Bool { true }
+
+    override func setFrameSize(_ newSize: NSSize) {
+        super.setFrameSize(newSize)
+        fit(to: enclosingScrollView?.contentSize ?? newSize)
+    }
+
+    override func layout() {
+        super.layout()
+        fit(to: enclosingScrollView?.contentSize ?? bounds.size)
+    }
+
+    func fit(to viewport: NSSize) {
+        guard let container = textView.textContainer else { return }
+        let width = max(1, min(viewport.width, readingMeasure))
+        container.containerSize = NSSize(width: width, height: .greatestFiniteMagnitude)
+        textView.layoutManager?.ensureLayout(for: container)
+        let used = textView.layoutManager?.usedRect(for: container).height ?? 0
+        let height = max(viewport.height, used + textView.textContainerInset.height * 2 + 4)
+        let textSize = NSSize(width: width, height: height)
+        if textView.frame.size != textSize { textView.setFrameSize(textSize) }
+        let documentSize = NSSize(width: max(1, viewport.width), height: height)
+        if frame.size != documentSize { super.setFrameSize(documentSize) }
     }
 }
 

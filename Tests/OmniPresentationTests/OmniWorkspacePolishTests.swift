@@ -254,8 +254,9 @@ private func resizeWorkspaceToMinimum(_ workspace: OmniWorkspace) {
     let panel = workspace.workspacePanel
     panel.setFrame(NSRect(x: panel.frame.minX, y: panel.frame.minY, width: 1512, height: 740), display: true)
     content.layoutSubtreeIfNeeded()
-    let scroll = try #require(polishView("omni.workspace.version-result", in: content)?.enclosingScrollView)
-    let text = try #require(scroll.documentView as? OmniSelectableTextView)
+    let text = try #require(polishView("omni.workspace.version-result", in: content) as? OmniSelectableTextView)
+    let scroll = try #require(text.enclosingScrollView)
+    scroll.scrollerStyle = .legacy
     let container = try #require(text.textContainer)
     let layout = try #require(text.layoutManager)
     scroll.layoutSubtreeIfNeeded()
