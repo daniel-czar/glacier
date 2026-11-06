@@ -453,11 +453,17 @@ private struct H13DelayedIsolationDriver: ModelProviderDriver {
     #expect(ModelHumanFailure.reason(kind: .apiRoutePermissionRequired, driverID: .openAIHTTP) == "paid API route needs permission")
 }
 
-@Test func installedHostPathFindsUserCLIsWithoutShell() {
-    let installedPath = "/usr/bin:/bin:/usr/sbin:/sbin"
+@Test func userLocalBinFindsCLIsWithoutShellWhenHostPathIsMissing() throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent("glacier-cli-resolver-\(UUID().uuidString)")
+    let userLocalBin = root.appendingPathComponent(".local/bin")
+    try FileManager.default.createDirectory(at: userLocalBin, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: root) }
     for executable in ["codex", "claude"] {
-        let resolved = CLIExecutableResolver.resolve(executable, searchPath: installedPath)
-        #expect(resolved != nil, "\(executable) must resolve under the installed host PATH")
-        if let resolved { #expect(FileManager.default.isExecutableFile(atPath: resolved.path)) }
+        let fixture = userLocalBin.appendingPathComponent(executable)
+        try Data("#!/bin/sh\nexit 0\n".utf8).write(to: fixture, options: .atomic)
+        try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: fixture.path)
+        let resolved = CLIExecutableResolver.resolve(executable, searchPath: "/nonexistent", userLocalBin: userLocalBin)
+        #expect(resolved == fixture, "\(executable) must resolve from the user-local binary directory")
+        #expect(FileManager.default.isExecutableFile(atPath: fixture.path))
     }
 }

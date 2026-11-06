@@ -67,14 +67,18 @@ public enum CLIExecutableResolver {
     /// names search the host process PATH and fixed user binary directories.
     /// LaunchAgents have a deliberately small PATH, so installed CLIs need
     /// these locations without changing the host's environment.
-    public static func resolve(_ configured: String, searchPath: String? = ProcessInfo.processInfo.environment["PATH"]) -> URL? {
+    public static func resolve(
+        _ configured: String,
+        searchPath: String? = ProcessInfo.processInfo.environment["PATH"],
+        userLocalBin: URL = OmniLayout.homeDirectory.appendingPathComponent(".local/bin")
+    ) -> URL? {
         let expanded = OmniLayout.expandingCurrentUserTilde(configured)
         if expanded.hasPrefix("/") {
             return FileManager.default.isExecutableFile(atPath: expanded) ? URL(fileURLWithPath: expanded) : nil
         }
         guard !configured.contains("/") else { return nil }
         let directories = (searchPath ?? "").split(separator: ":").map(String.init) + [
-            OmniLayout.homeDirectory.appendingPathComponent(".local/bin").path,
+            userLocalBin.path,
             "/opt/homebrew/bin",
             "/usr/local/bin",
         ]

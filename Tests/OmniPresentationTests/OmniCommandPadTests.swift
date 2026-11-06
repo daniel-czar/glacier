@@ -894,10 +894,24 @@ private func padKey(_ code: UInt16, flags: NSEvent.ModifierFlags = []) -> NSEven
     let fitted = OmniCompletionMenu(items: items, highlighted: 0, room: 154)
     #expect(fitted.visibleRowCount == 4)
     #expect(fitted.listScrollView.frame.height == 4 * OmniCompletionMenu.rowHeight)
+    let fittedPlacement = OmniCompletionMenu.placement(size: fitted.frame.size, above: pad,
+                                                       caretX: 420, screenTop: pad.maxY + OmniCompletionMenu.gap + 154)
+    #expect(!fittedPlacement.below)
+    #expect(fittedPlacement.origin.y == pad.maxY + OmniCompletionMenu.gap)
     fitted.present(above: pad, caretX: 420, screenTop: pad.maxY + OmniCompletionMenu.gap + 154)
     #expect(!fitted.isBelowPad)
     #expect(fitted.frame.maxY <= pad.maxY + OmniCompletionMenu.gap + 154)
-    #expect(fitted.frame.minY == pad.maxY + OmniCompletionMenu.gap)
+    // AppKit may move the synthetic 882 pt placement on a smaller CI display.
+    // A pad placed inside the actual visible frame still proves presentation stays above it.
+    let visible = try #require(NSScreen.main?.visibleFrame)
+    let residentPad = NSRect(x: visible.midX - 320, y: visible.minY + 24, width: 640, height: 40)
+    let residentRoom = visible.maxY - residentPad.maxY - OmniCompletionMenu.gap
+    let resident = OmniCompletionMenu(items: items, highlighted: 0, room: residentRoom)
+    defer { resident.close() }
+    #expect(resident.frame.height <= residentRoom)
+    resident.present(above: residentPad, caretX: residentPad.minX + 20, screenTop: visible.maxY)
+    #expect(!resident.isBelowPad)
+    #expect(resident.frame.minY == residentPad.maxY + OmniCompletionMenu.gap)
     // No limit, a huge finite value, or the default: the full eight, never a crash.
     #expect(OmniCompletionMenu(items: items, highlighted: 0, room: .infinity).visibleRowCount == OmniCompletionMenu.visibleRows)
     #expect(OmniCompletionMenu(items: items, highlighted: 0, room: .greatestFiniteMagnitude).visibleRowCount == OmniCompletionMenu.visibleRows)
@@ -907,6 +921,10 @@ private func padKey(_ code: UInt16, flags: NSEvent.ModifierFlags = []) -> NSEven
     #expect(OmniCompletionMenu(items: items, highlighted: 0, room: .nan).visibleRowCount == OmniCompletionMenu.visibleRows)
     // Not even the help column fits above: below the pad, with the full list.
     let cramped = OmniCompletionMenu(items: items, highlighted: 0, room: .infinity)
+    let crampedPlacement = OmniCompletionMenu.placement(size: cramped.frame.size, above: pad,
+                                                        caretX: 420, screenTop: pad.maxY + 40)
+    #expect(crampedPlacement.below)
+    #expect(crampedPlacement.origin.y + cramped.frame.height == pad.minY - OmniCompletionMenu.gap)
     cramped.present(above: pad, caretX: 420, screenTop: pad.maxY + 40)
     #expect(cramped.isBelowPad)
     #expect(cramped.frame.maxY == pad.minY - OmniCompletionMenu.gap)

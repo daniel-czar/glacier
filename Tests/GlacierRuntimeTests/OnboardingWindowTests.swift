@@ -59,10 +59,22 @@ private func captureOnboarding(_ window: NSWindow, step: GlacierOnboardingStep,
 
 @MainActor
 private func expectVisibleHeader(in image: NSBitmapImageRep, step: GlacierOnboardingStep) throws {
-    let cgImage = try #require(image.cgImage)
+    guard let png = image.representation(using: .png, properties: [:]) else {
+        Issue.record("The native onboarding bitmap could not be encoded for text recognition")
+        throw CocoaError(.fileReadCorruptFile)
+    }
     let request = VNRecognizeTextRequest()
     request.recognitionLevel = .accurate
-    try VNImageRequestHandler(cgImage: cgImage).perform([request])
+    // Hosted macOS runners may have no usable GPU or Neural Engine. Keep the
+    // image and OCR assertions real while choosing Vision's CPU path.
+    request.usesCPUOnly = true
+    do {
+        try VNImageRequestHandler(data: png, options: [:]).perform([request])
+    } catch {
+        let failure = error as NSError
+        Issue.record("Vision OCR failed on \(step.rawValue): \(failure.domain) code \(failure.code): \(failure.localizedDescription)")
+        throw error
+    }
     let headerText = (request.results ?? [])
         .filter { $0.boundingBox.midY > 0.94 }
         .compactMap { $0.topCandidates(1).first?.string }

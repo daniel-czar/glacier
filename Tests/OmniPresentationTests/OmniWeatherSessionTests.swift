@@ -171,7 +171,7 @@ func weatherLocationDeniedStillAllowsTypedPlace() async {
 func weatherAmbiguityRequiresSelectionAndEnterChooses() async {
     _ = NSApplication.shared
     let gate = WeatherFetchGate()
-    let session = OmniWeatherSession(location: WeatherTestLocation(), now: { weatherTestNow }, debounce: .zero,
+    let session = OmniWeatherSession(location: WeatherTestLocation(), units: { .metric }, now: { weatherTestNow }, debounce: .zero,
         geocode: { _, _ in [weatherTestPlace("Paris"), weatherTestPlace("Paris, Texas")] },
         forecast: { try await gate.fetch($0) })
     let window = OmniWeatherWindowController(session: session, presentsInterface: false)
@@ -238,7 +238,7 @@ func weatherCachedAmbiguousNameCannotCopyBeforeGeocodingOrBypassChoice() async t
     let cache = WeatherReadingCache(directory: directory)
     try await cache.store(weatherTestReading(weatherTestPlace("Paris")), query: "paris")
     let geocoder = WeatherGeocodeGate()
-    let session = OmniWeatherSession(cache: cache, location: WeatherTestLocation(), now: { weatherTestNow }, debounce: .zero,
+    let session = OmniWeatherSession(cache: cache, location: WeatherTestLocation(), units: { .metric }, now: { weatherTestNow }, debounce: .zero,
         geocode: { _, _ in await geocoder.lookup() }, forecast: { weatherTestReading($0) })
     session.open(input: "paris")
     await waitWeather { session.reading != nil }

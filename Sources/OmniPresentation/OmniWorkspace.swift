@@ -1195,7 +1195,9 @@ public final class OmniWorkspace: NSObject, NSWindowDelegate, NSTextViewDelegate
         textView.isRichText = false
         textView.isVerticallyResizable = true
         textView.isHorizontallyResizable = false
-        textView.autoresizingMask = [.width]
+        // The measured result view owns its width in OmniWorkspaceTextScrollView.layout().
+        // AppKit can otherwise stretch it back to the clip width after that layout pass.
+        textView.autoresizingMask = identifier == "omni.workspace.version-result" ? [] : [.width]
         textView.textContainer?.widthTracksTextView = true
         textView.drawsBackground = false
         textView.font = .systemFont(ofSize: identifier.contains("input") ? 13 : 17)

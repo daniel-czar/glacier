@@ -2786,11 +2786,18 @@ public struct OmniCommandHelp: Equatable, Sendable {
 
     /// Above the pad, left edge at the caret (clamped to the pad); below the
     /// pad only when even the fitted panel cannot sit above it on this screen.
-    public func present(above padFrame: NSRect, caretX: CGFloat, screenTop: CGFloat = .infinity) {
-        let x = min(max(caretX - 12, padFrame.minX), padFrame.maxX - frame.width)
+    static func placement(size: NSSize, above padFrame: NSRect, caretX: CGFloat,
+                          screenTop: CGFloat) -> (origin: NSPoint, below: Bool) {
+        let x = min(max(caretX - 12, padFrame.minX), padFrame.maxX - size.width)
         let above = padFrame.maxY + Self.gap
-        isBelowPad = above + frame.height > screenTop
-        setFrameOrigin(NSPoint(x: x, y: isBelowPad ? padFrame.minY - Self.gap - frame.height : above))
+        let below = above + size.height > screenTop
+        return (NSPoint(x: x, y: below ? padFrame.minY - Self.gap - size.height : above), below)
+    }
+
+    public func present(above padFrame: NSRect, caretX: CGFloat, screenTop: CGFloat = .infinity) {
+        let chosen = Self.placement(size: frame.size, above: padFrame, caretX: caretX, screenTop: screenTop)
+        isBelowPad = chosen.below
+        setFrameOrigin(chosen.origin)
         orderFrontRegardless()
         // Say that there is more: the overlay scroller is otherwise invisible
         // until the first scroll, and the last row ends exactly at the edge.
