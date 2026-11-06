@@ -1,0 +1,157 @@
+/* Glacier: ice-white planes, arctic-blue structure, a restrained cyan seam.
+   Layout, content and motion are inherited from the refined baseline. */
+
+:root {
+  --bg: #fbfdff;
+  --band: #edf5fa;
+  --band-2: #f4f9fc;
+  --ink: #0a263d;
+  --ink-2: #345369;
+  --ink-3: #526e81;
+  --meta: rgba(10, 38, 61, 0.58);
+  --hair: rgba(24, 83, 118, 0.11);
+  --hair-2: rgba(24, 83, 118, 0.18);
+  --accent: #075b9c;
+  --accent-hover: #064b82;
+  --accent-tint: rgba(17, 132, 188, 0.13);
+  --cmd: #075b9c;
+  --cmd-fill: rgba(17, 132, 188, 0.13);
+  --mod: #51458d;
+  --mod-fill: rgba(109, 93, 170, 0.12);
+  --mode: #076d78;
+  --mode-fill: rgba(10, 139, 151, 0.13);
+  --dark: #071d31;
+  --dark-2: #0b273d;
+  --dark-ink: #f4fbff;
+  --dark-ink-2: rgba(236, 249, 255, 0.76);
+  --dark-ink-3: rgba(236, 249, 255, 0.6);
+}
+
+/* Flat reading surfaces let the native pad remain the glass focal point. */
+.hero { background: radial-gradient(900px 440px at 50% -170px, #dceff8 0%, #fbfdff 78%); }
+.nav-row {
+  background: rgba(250, 253, 255, 0.9);
+  border-color: rgba(50, 111, 146, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(7, 46, 76, 0.08);
+}
+.nav-links { color: var(--ink-2); }
+.nav-links a.is-current { background: var(--accent-tint); color: var(--accent); }
+.btn, .intent, .tour-toggle { border-radius: 9px; }
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 3px 10px rgba(5, 70, 115, 0.16); }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-ghost { color: var(--accent); }
+.btn-ghost:hover, .intent:hover, .tour-toggle:hover { background: #e9f4f9; }
+.intent[aria-pressed="true"] { background: var(--accent-tint); color: var(--accent); }
+.intent-live { border-color: rgba(7, 91, 156, 0.32); }
+.intent-live[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.demo-heading { color: var(--ink-2); }
+.demo-label { color: var(--ink-3); }
+
+/* The illustration sits behind the live HTML desktop and story. */
+.desk-wall, .scene-wall {
+  background: #a9d3e6 url("assets/theme-wallpaper.webp") center 45% / cover no-repeat;
+}
+.desk-wall::after {
+  background: linear-gradient(180deg, rgba(247, 253, 255, 0.2), rgba(6, 49, 79, 0.12));
+}
+.mw-read mark { background: rgba(29, 145, 197, 0.2); }
+
+.pad {
+  --p-bg: rgba(241, 249, 253, 0.9);
+  --p-border: rgba(255, 255, 255, 0.82);
+  --p-ink: #102d44;
+  --p-ink-2: #46637a;
+  --p-ink-3: #587287;
+  --p-ph: #667f90;
+  --p-hair: rgba(21, 82, 119, 0.12);
+  --p-fill: rgba(19, 102, 148, 0.08);
+  --p-sel: rgba(19, 131, 183, 0.12);
+  --p-caret: #0873b0;
+  --p-run: #075b9c;
+  --p-cmd: #075b9c;
+  --p-cmd-fill: rgba(17, 132, 188, 0.14);
+  --p-mod: #51458d;
+  --p-mod-fill: rgba(109, 93, 170, 0.12);
+  --p-mode: #076d78;
+  --p-mode-fill: rgba(10, 139, 151, 0.13);
+  --p-pill: #076d78;
+  --p-pill-fill: rgba(10, 139, 151, 0.14);
+  border-radius: 15px;
+  box-shadow: 0 22px 58px rgba(5, 34, 55, 0.27), 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+.pad .result.long::after {
+  background: linear-gradient(to bottom, rgba(241, 249, 253, 0), rgba(241, 249, 253, 0.98));
+}
+.pad.dark {
+  --p-bg: rgba(9, 29, 46, 0.95);
+  --p-border: rgba(151, 216, 238, 0.18);
+  --p-ink: #f2fbff;
+  --p-ink-2: rgba(230, 247, 255, 0.76);
+  --p-ink-3: rgba(230, 247, 255, 0.62);
+  --p-ph: rgba(230, 247, 255, 0.53);
+  --p-hair: rgba(184, 229, 246, 0.15);
+  --p-fill: rgba(187, 232, 249, 0.1);
+  --p-sel: rgba(53, 172, 218, 0.17);
+  --p-caret: #82d9f0;
+  --p-run: #0e78b2;
+  --p-cmd: #a7defb;
+  --p-cmd-fill: rgba(78, 174, 226, 0.21);
+  --p-mode: #9be4dd;
+  --p-mode-fill: rgba(82, 194, 186, 0.18);
+  --p-pill: #9be4dd;
+  --p-pill-fill: rgba(82, 194, 186, 0.18);
+  box-shadow: 0 24px 60px rgba(2, 16, 28, 0.45), 0 0 0 1px rgba(179, 225, 243, 0.16);
+}
+.pad.dark .result.long::after {
+  background: linear-gradient(to bottom, rgba(9, 29, 46, 0), rgba(9, 29, 46, 0.98));
+}
+
+/* The dark chapter is the crevasse; cyan carries interactive meaning. */
+.sec-dark { background: var(--dark); }
+.tools { background: var(--dark-2); }
+.kb-glow {
+  background: radial-gradient(50% 50% at 50% 50%, rgba(47, 180, 221, 0.19), rgba(47, 180, 221, 0) 70%);
+}
+.ov {
+  background: rgba(8, 29, 47, 0.94);
+  border-color: rgba(160, 222, 241, 0.2);
+  border-radius: 15px;
+}
+.pop, .nc-visual, .rec-bar, .rec-frame { background: #102c43; }
+.tool-row[aria-selected="true"] {
+  background: rgba(91, 186, 219, 0.1);
+  border-color: rgba(124, 211, 238, 0.22);
+}
+.tag.local, .k.tool { color: #a8e9e6; }
+.tag.model, .k.cmd { color: #acdafa; }
+
+/* Proof sections remain open and easy to scan. */
+.outcomes { background: #fff; }
+.outcome-choice[aria-pressed="true"] { color: var(--ink); }
+.outcome-choice[aria-pressed="true"]::after { color: var(--accent); }
+.step.is-on .step-n { color: var(--accent); }
+.band-cta, .sec-band { background: var(--band); }
+.trust { border-top-color: #79b4d1; }
+.bubble mark { text-decoration-color: rgba(13, 142, 188, 0.44); }
+.new-card .nc-visual { border-radius: 12px; }
+.get-card { background: #edf5fa; border-radius: 17px; }
+.footer { background: #eef6fa; }
+
+@media (max-width: 1100px) {
+  .nav-links {
+    background: rgba(250, 253, 255, 0.97);
+    border-color: rgba(50, 111, 146, 0.17);
+  }
+  .tool-row[aria-selected="true"] {
+    background: rgba(91, 186, 219, 0.13);
+    border-color: rgba(124, 211, 238, 0.4);
+  }
+  .outcome-choice[aria-pressed="true"] {
+    background: var(--accent-tint);
+    border-color: rgba(7, 91, 156, 0.38);
+  }
+}
+@media (max-width: 860px) {
+  .desk-wall { background-position: center 65%; }
+}

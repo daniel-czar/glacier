@@ -13,3 +13,9 @@ __pycache__/
 .pytest_cache/
 .venv/
 .worktrees/
+
+# Website build and local Cloudflare state
+node_modules/
+.wrangler/
+website/cloudflare/artifacts/
+website/cloudflare/build-manifest.json
