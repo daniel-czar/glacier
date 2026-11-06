@@ -21,7 +21,7 @@ tags:
 
 Glacier brings app launching, file search, writing, visual thinking and everyday utilities into one keyboard-first Mac app. Open it, type a command or bring in selected text, and take the result back to what you were doing.
 
-**Early preview.** This checkout builds a working local app. A signed, notarized public download is still being prepared. Current packaged target: **Apple Silicon, macOS 14.4 or later**.
+**Early preview — source available.** You can clone this repository or [download the source ZIP](https://github.com/daniel-czar/glacier/archive/refs/heads/main.zip) and build Glacier locally. The ZIP contains source code, not a ready-to-run Mac app. This checkout builds a working local app. A signed, notarized public download is still being prepared. Current packaged target: **Apple Silicon, macOS 14.4 or later**.
 
 [Website](https://glacierformac.com/) · [Try it locally](#try-it-locally) · [Things to try](#things-to-try) · [Setup and privacy](#make-glacier-yours) · [Contribute](CONTRIBUTING.md)
 
@@ -48,15 +48,20 @@ Local tools do not need an account or an AI connection. Model-powered tools use 
 
 ## Try it locally
 
-You need **macOS 14.4+, a Swift 6 toolchain and [uv](https://docs.astral.sh/uv/getting-started/installation/)**. Run these commands from the repository root:
+You need **macOS 14.4+, a Swift 6 toolchain and [uv](https://docs.astral.sh/uv/getting-started/installation/)**. Clone the repository, then build the local development app:
 
 ```sh
+git clone https://github.com/daniel-czar/glacier.git
+cd glacier
+
 # Build a local development app, including its pronunciation helper.
 uv run --no-project Scripts/package_glacier.py --debug
 
 # Launch the app you just built.
 open dist/Glacier.app
 ```
+
+If you downloaded the source ZIP instead, extract it and follow the [source-archive setup instructions](docs/glacier-release-preparation_88189953575222a9.md#building-a-history-free-source-snapshot) before packaging. The packager uses a local Git commit to record build provenance.
 
 The first helper build downloads a pinned Python runtime and locked dependencies. They are bundled into the app; end users do not need to install Python. This package is ad hoc signed for development, not notarized for public distribution. The packaging command does not install the app into Applications or enable login startup.
 

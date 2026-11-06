@@ -13,7 +13,8 @@ tags: [glacier, website, cloudflare]
 
 Live: https://glacierformac.com/, deployed on 6 November 2026 to the existing
 Cloudflare account using Workers Static Assets. HTTP redirects to HTTPS.
-The GitHub repository remains private, and no app download is published.
+The source repository is public under GPL-3.0-only. No signed Mac app download
+is published.
 This folder is the deployment source; it contains no account credentials.
 The local checks below do not deploy it.
 
@@ -61,22 +62,23 @@ Multiple or malformed ranges receive the complete file. The small bounded video
 files make this simpler than adding an R2 account/storage dependency.
 All other requests use static asset serving.
 
-## Deliberately pending
+## Availability and remaining release work
 
-- Keep the Glacier repository private until its later source release. Public
-  links go to the labeled developer profile, and source and download remain
-  marked coming soon. No local ad-hoc app archive is exposed from this site.
+- The site links the public source repository and a clearly labeled source ZIP. The ZIP
+  is not a Mac app. Build instructions live in the repository README. No local
+  ad-hoc app archive is exposed from this site.
 - Complete Apple signing/notarization and the real first-use checks before
   presenting an app download as ready.
 - Future deployments use the authorized Cloudflare account and `npm run deploy`
   from this folder. The configuration declares only the apex domain; `www`
   is not configured.
 
-Live verification passed for HTTPS, HTTP redirection, every exported asset,
+The previous deployment passed live checks for HTTPS, HTTP redirection, every exported asset,
 excluded-file 404s, MP4/WebM full bytes and range responses, browser playback,
 interactive examples and a 390-pixel mobile layout. The build manifest is a
-local build artifact, not a live deployment status record. GitHub Actions are
-disabled for this private setup stage; no hosted CI run is claimed.
+local build artifact, not a live deployment status record. Hosted source-check results are available in the repository’s
+[GitHub Actions](https://github.com/daniel-czar/glacier/actions). They do not
+sign or publish a Mac app.
 
 The canonical URL, Open Graph URL/image and sitemap already target
 `https://glacierformac.com/`. The public site has no analytics, forms, AI requests

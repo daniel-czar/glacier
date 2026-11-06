@@ -24,9 +24,12 @@ test('public export is closed over local references and contains no private expe
     }
     const html = await readFile(path.join(temporary, 'public/index.html'), 'utf8');
     assert.ok(html.includes('https://glacierformac.com/assets/social-card.jpg'));
-    assert.ok(html.includes('aria-label="Developer GitHub profile"'));
-    assert.ok(html.includes('The repository is private for now; public source and download are coming soon.'));
-    assert.ok(!html.includes('Explore on GitHub'));
+    assert.ok(html.includes('aria-label="Glacier source on GitHub"'));
+    assert.ok(html.includes('href="https://github.com/daniel-czar/glacier"'));
+    assert.ok(html.includes('href="https://github.com/daniel-czar/glacier/archive/refs/heads/main.zip">Download source ZIP'));
+    assert.ok(html.includes('The ZIP contains source code, not a ready-to-run app.'));
+    assert.ok(html.includes('A signed Mac app download is coming soon.'));
+    assert.ok(!html.includes('The repository is private for now'));
     assert.ok(!html.includes('open to inspect'));
     assert.ok(!html.includes('../shared/'));
     const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);

@@ -68,7 +68,7 @@ export async function build(destination = path.join(project, 'dist')) {
     manifest.push({ path: file, bytes: data.length, sha256: createHash('sha256').update(data).digest('hex') });
   }
   return { domain: 'glacierformac.com', publicFiles: manifest,
-    pending: ['Cloudflare publication and live verification', 'Public source repository and signed download links'] };
+    pending: ['Deployment and live verification of this build', 'Signed, notarized Mac app download'] };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

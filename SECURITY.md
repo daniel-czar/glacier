@@ -4,7 +4,7 @@ alias: lyrics human palace balance cream daring
 kind: reference
 title: Glacier security boundaries
 created: '2026-11-02'
-updated: '2026-11-04'
+updated: '2026-11-06'
 tags:
 - glacier
 - macos
@@ -23,18 +23,13 @@ source. Search roots do not authorize uploading file bodies or index metadata.
 
 ## Reporting a vulnerability
 
-The public repository and its confidential reporting channel are **not active
-yet**. Before the repository opens, the maintainer must enable and verify a
-private reporting route, then replace this section with its exact instructions.
-GitHub private vulnerability reporting is one possible route if enabled; this
-file does not claim it is available. Do not post exploitable details, keys or
-personal data in a public issue, and do not send them to an unrelated address.
+Report vulnerabilities privately through [GitHub's vulnerability reporting form](https://github.com/daniel-czar/glacier/security/advisories/new).
+Do not post exploitable details, API keys or personal data in a public issue.
 
-Once a verified private route is published, a useful report will name the
-affected commit or app version, macOS version and architecture, steps to
-reproduce, expected versus actual behavior, and the security impact. Provide
-only the minimum redacted log or sample needed to reproduce it. No response
-time or disclosure schedule is promised here.
+Include the affected commit or app version, macOS version and architecture,
+steps to reproduce, expected versus actual behavior, and the security impact.
+Provide only the minimum redacted log or sample needed to reproduce it.
+No response time or disclosure schedule is promised here.
 
 ## Boundaries to preserve
 
