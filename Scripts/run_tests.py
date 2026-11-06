@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import platform
 import re
 import subprocess
 import sys
@@ -30,11 +31,18 @@ def main() -> int:
         arguments = arguments[1:]
     guard = PACKAGE / ".build/omni-test-runloop-guard.dylib"
     guard.parent.mkdir(exist_ok=True)
+    # SwiftPM inherits this injection in build helpers too. On Apple Silicon,
+    # /usr/bin/xcrun is arm64e while the test worker is arm64, so the guard
+    # must provide both slices before SwiftPM can reach the tests.
+    architectures = (
+        ["-arch", "arm64", "-arch", "arm64e"] if platform.machine() == "arm64" else []
+    )
     subprocess.run(
         [
             "xcrun",
             "clang",
             "-dynamiclib",
+            *architectures,
             "-framework",
             "CoreFoundation",
             str(PACKAGE / "Scripts/omni_test_runloop_guard.c"),

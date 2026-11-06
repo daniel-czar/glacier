@@ -1,16 +1,3 @@
----
-id: c0c0e6be42ca4e00
-alias: school already question machine pilot abandon
-kind: readme
-title: Glacier
-created: '2026-11-02'
-updated: '2026-11-06'
-tags:
-- glacier
-- macos
-- open-source
----
-
 <p align="center">
   <img src="docs/media/glacier-icon.webp" width="88" height="88" alt="Glacier's blue ice-crevasse icon">
 </p>
