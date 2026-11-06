@@ -23,7 +23,7 @@ Glacier brings app launching, file search, writing, visual thinking and everyday
 
 **Early preview.** This checkout builds a working local app. A signed, notarized public download is still being prepared. Current packaged target: **Apple Silicon, macOS 14.4 or later**.
 
-[Try it locally](#try-it-locally) · [Things to try](#things-to-try) · [Setup and privacy](#make-glacier-yours) · [Contribute](CONTRIBUTING.md)
+[Website](https://glacierformac.com/) · [Try it locally](#try-it-locally) · [Things to try](#things-to-try) · [Setup and privacy](#make-glacier-yours) · [Contribute](CONTRIBUTING.md)
 
 ## From an email to the right words
 

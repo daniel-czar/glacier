@@ -5,16 +5,17 @@ kind: readme
 title: Glacier Cloudflare deployment
 created: '2026-11-04'
 updated: '2026-11-06'
-summary: Local export, preview and later Cloudflare deployment for glacierformac.com.
+summary: Live Cloudflare website, local workflow and remaining release boundaries for glacierformac.com.
 tags: [glacier, website, cloudflare]
 ---
 
 # Glacier website deployment
 
-Target: `https://glacierformac.com/`, on the existing Cloudflare account.
-The domain is active.
-This folder prepares the existing static website for Workers Static Assets.
-It contains no account credentials. The local checks below do not deploy it.
+Live: https://glacierformac.com/, deployed on 6 November 2026 to the existing
+Cloudflare account using Workers Static Assets. HTTP redirects to HTTPS.
+The GitHub repository remains private, and no app download is published.
+This folder is the deployment source; it contains no account credentials.
+The local checks below do not deploy it.
 
 ## Local source workflow
 
@@ -62,19 +63,20 @@ All other requests use static asset serving.
 
 ## Deliberately pending
 
-- Publish and verify the website on the active domain. This task is authorized;
-  the build manifest records publication as pending until live checks pass.
 - Keep the Glacier repository private until its later source release. Public
   links go to the labeled developer profile, and source and download remain
   marked coming soon. No local ad-hoc app archive is exposed from this site.
 - Complete Apple signing/notarization and the real first-use checks before
   presenting an app download as ready.
-- Use the authorized Cloudflare account to run `npx wrangler login` and
-  `npm run deploy` from the prepared folder. The
-  configuration declares only the apex domain; a `www` redirect can be added
-  in Cloudflare DNS/rules when configured.
-- Verify live HTTPS, redirects, social image, real links and Safari playback
-  from the deployed URL. Local success is not a claim that DNS or TLS is live.
+- Future deployments use the authorized Cloudflare account and `npm run deploy`
+  from this folder. The configuration declares only the apex domain; `www`
+  is not configured.
+
+Live verification passed for HTTPS, HTTP redirection, every exported asset,
+excluded-file 404s, MP4/WebM full bytes and range responses, browser playback,
+interactive examples and a 390-pixel mobile layout. The build manifest is a
+local build artifact, not a live deployment status record. GitHub Actions are
+disabled for this private setup stage; no hosted CI run is claimed.
 
 The canonical URL, Open Graph URL/image and sitemap already target
 `https://glacierformac.com/`. The public site has no analytics, forms, AI requests
